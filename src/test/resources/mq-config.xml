@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xml>
+    <Exchange>
+        <Key exchange="amq.direct" type="direct" durable="true" autoDelete="false" />
+    </Exchange>
+    <Queue>
+        <Key queue="afx.test" routingKey="afx.test" delayQueue="afx.test.delay" delayRoutingKey="afx.test.delay"
+            durable="true" exclusive="false" autoDelete="false" exchange="amq.direct"
+            isQueueParam="false" />
+    </Queue>
+    <PubMsg>
+        <Key name="TestDto" routingKey="afx.test" delayRoutingKey="afx.test.delay" exchange="amq.direct" isRoutingKeyParam="false" />
+    </PubMsg>
+    <SubMsg>
+        <Key name="TestDto" queue="afx.test" isQueueParam="false" />
+    </SubMsg>
+</xml>
