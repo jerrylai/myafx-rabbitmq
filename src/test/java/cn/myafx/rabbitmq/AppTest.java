@@ -13,8 +13,10 @@ public class AppTest {
     public static void main(String[] args) throws Exception {
         var url = AppTest.class.getClassLoader().getResource("mq-config.xml");
         try (var config = new MQConfig(url)) {
+
             var es = config.getExchanges();
             var qs = config.getQueues();
+
             try (var pool = new MQPool("192.168.2.231", 5672, "admin", "admin", "/", 2,
                     15, "test",
                     new IJsonMapper() {
@@ -30,7 +32,7 @@ public class AppTest {
                     })) {
                 pool.exchangeDeclare(es);
                 pool.queueDeclare(qs);
-                var sc = config.getSubMsgConfig("TestDto");
+                var sc = config.getSubConfig("TestDto");
                 pool.sub(new ISubHander<String>() {
 
                     @Override
@@ -41,7 +43,7 @@ public class AppTest {
 
                 }, String.class, sc.Queue, false);
 
-                var pc = config.getPubMsgConfig("TestDto");
+                var pc = config.getPubConfig("TestDto");
                 pool.pubDelay("333", pc, 5, null, null);
                 pool.pub("ssdddds", pc, null, null, null);
                 pool.pub("222", pc, null, null, null);

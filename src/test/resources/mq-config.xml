@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xml>
     <Exchange>
+        <!-- 交换定义 -->
         <Key exchange="amq.direct" type="direct" durable="true" autoDelete="false" />
     </Exchange>
     <Queue>
+        <!-- 队列定义 -->
         <Key queue="afx.test" routingKey="afx.test" delayQueue="afx.test.delay" delayRoutingKey="afx.test.delay"
             durable="true" exclusive="false" autoDelete="false" exchange="amq.direct"
             isQueueParam="false" />
     </Queue>
-    <PubMsg>
+    <Pub>
+        <!-- 生产定义 name 对应类名 -->
         <Key name="TestDto" routingKey="afx.test" delayRoutingKey="afx.test.delay" exchange="amq.direct" isRoutingKeyParam="false" />
-    </PubMsg>
-    <SubMsg>
+    </Pub>
+    <Sub>
+        <!-- 消费定义 name 对应类名 -->
         <Key name="TestDto" queue="afx.test" isQueueParam="false" />
-    </SubMsg>
+    </Sub>
 </xml>

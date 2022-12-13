@@ -3,7 +3,7 @@ package cn.myafx.rabbitmq;
 /**
  * 消费配置
  */
-public class SubMsgConfig {
+public class SubConfig {
     /**
      * 消息名称
      */
@@ -20,10 +20,10 @@ public class SubMsgConfig {
     /**
      * 复制
      * 
-     * @return SubMsgConfig
+     * @return SubConfig
      */
-    public SubMsgConfig copy() {
-        var m = new SubMsgConfig();
+    public SubConfig copy() {
+        var m = new SubConfig();
         m.Name = this.Name;
         m.Queue = this.Queue;
         m.IsQueueParam = this.IsQueueParam;

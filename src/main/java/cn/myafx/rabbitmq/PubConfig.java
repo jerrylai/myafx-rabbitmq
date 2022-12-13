@@ -3,7 +3,7 @@ package cn.myafx.rabbitmq;
 /**
  * 生产消息配置
  */
-public class PubMsgConfig {
+public class PubConfig {
     /**
      * 消息名称
      */
@@ -29,10 +29,10 @@ public class PubMsgConfig {
     /**
      * 复制
      * 
-     * @return PubMsgConfig
+     * @return PubConfig
      */
-    public PubMsgConfig copy() {
-        var m = new PubMsgConfig();
+    public PubConfig copy() {
+        var m = new PubConfig();
         m.Name = this.Name;
         m.Exchange = this.Exchange;
         m.RoutingKey = this.RoutingKey;

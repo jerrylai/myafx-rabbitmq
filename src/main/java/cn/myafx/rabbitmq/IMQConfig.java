@@ -24,15 +24,15 @@ public interface IMQConfig extends AutoCloseable {
      * 获取配置生产者
      * 
      * @param name 节点名称
-     * @return PubMsgConfig
+     * @return PubConfig
      */
-    PubMsgConfig getPubMsgConfig(String name);
+    PubConfig getPubConfig(String name);
 
     /**
      * 获取配置消费者
      * 
      * @param name 节点名称
-     * @return SubMsgConfig
+     * @return SubConfig
      */
-    SubMsgConfig getSubMsgConfig(String name);
+    SubConfig getSubConfig(String name);
 }

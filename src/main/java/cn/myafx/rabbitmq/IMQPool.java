@@ -95,7 +95,7 @@ public interface IMQPool extends AutoCloseable {
          * @throws Exception Exception
          * @return boolean
          */
-        <T> boolean pub(T msg, PubMsgConfig config, Integer expire, Boolean persistent, Map<String, Object> headers)
+        <T> boolean pub(T msg, PubConfig config, Integer expire, Boolean persistent, Map<String, Object> headers)
                         throws Exception;
 
         /**
@@ -126,7 +126,7 @@ public interface IMQPool extends AutoCloseable {
          * @throws Exception Exception
          * @return boolean
          */
-        <T> boolean pub(List<T> msgList, PubMsgConfig config, Integer expire, Boolean persistent,
+        <T> boolean pub(List<T> msgList, PubConfig config, Integer expire, Boolean persistent,
                         Map<String, Object> headers) throws Exception;
 
         /**
@@ -157,7 +157,7 @@ public interface IMQPool extends AutoCloseable {
          * @throws Exception Exception
          * @return boolean
          */
-        <T> boolean pubDelay(T msg, PubMsgConfig config, Integer delay, Boolean persistent,
+        <T> boolean pubDelay(T msg, PubConfig config, Integer delay, Boolean persistent,
                         Map<String, Object> headers) throws Exception;
 
         /**
@@ -188,7 +188,7 @@ public interface IMQPool extends AutoCloseable {
          * @throws Exception Exception
          * @return boolean
          */
-        <T> boolean pubDelay(List<T> msgList, PubMsgConfig config, Integer delay, Boolean persistent,
+        <T> boolean pubDelay(List<T> msgList, PubConfig config, Integer delay, Boolean persistent,
                         Map<String, Object> headers) throws Exception;
 
         /**

@@ -17,8 +17,8 @@ import org.w3c.dom.Node;
 public class MQConfig implements IMQConfig {
     private Map<String, ExchangeConfig> exchangeMap;
     private Map<String, QueueConfig> queueMap;
-    private Map<String, PubMsgConfig> pubMsgMap;
-    private Map<String, SubMsgConfig> subMsgMap;
+    private Map<String, PubConfig> pubMsgMap;
+    private Map<String, SubConfig> subMsgMap;
 
     /**
      * 判断是否为null or ""
@@ -90,22 +90,28 @@ public class MQConfig implements IMQConfig {
                 continue;
             switch (node.getNodeName()) {
                 case "Exchange":
-                    this.loadExchange(node);
+                case "ExchangeConfig":
+                    this.loadExchangeConfig(node);
                     break;
                 case "Queue":
-                    this.loadQueue(node);
+                case "QueueConfig":
+                    this.loadQueueConfig(node);
                     break;
+                case "Pub":
                 case "PubMsg":
-                    this.loadPubMsg(node);
+                case "PubConfig":
+                    this.loadPubConfig(node);
                     break;
+                case "Sub":
                 case "SubMsg":
-                    this.loadSubMsg(node);
+                case "SubConfig":
+                    this.loadSubConfig(node);
                     break;
             }
         }
     }
 
-    private void loadExchange(Element rootElement) throws Exception {
+    private void loadExchangeConfig(Element rootElement) throws Exception {
         var nodes = rootElement.getChildNodes();
         exchangeMap = new HashMap<>(nodes.getLength());
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -152,7 +158,7 @@ public class MQConfig implements IMQConfig {
         }
     }
 
-    private void loadQueue(Element rootElement) throws Exception {
+    private void loadQueueConfig(Element rootElement) throws Exception {
         var nodes = rootElement.getChildNodes();
         queueMap = new HashMap<>(nodes.getLength());
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -227,7 +233,7 @@ public class MQConfig implements IMQConfig {
         }
     }
 
-    private void loadPubMsg(Element rootElement) throws Exception {
+    private void loadPubConfig(Element rootElement) throws Exception {
         var nodes = rootElement.getChildNodes();
         pubMsgMap = new HashMap<>(nodes.getLength());
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -241,7 +247,7 @@ public class MQConfig implements IMQConfig {
                 throw new Exception("PubMsg name config is null!");
             if (pubMsgMap.containsKey(s))
                 throw new Exception("PubMsg name (" + s + ") is repeat！");
-            var m = new PubMsgConfig();
+            var m = new PubConfig();
             m.Name = s;
             s = item.getAttribute("routingKey");
             if (!isNullOrEmpty(s))
@@ -260,7 +266,7 @@ public class MQConfig implements IMQConfig {
         }
     }
 
-    private void loadSubMsg(Element rootElement) throws Exception {
+    private void loadSubConfig(Element rootElement) throws Exception {
         var nodes = rootElement.getChildNodes();
         subMsgMap = new HashMap<>(nodes.getLength());
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -274,7 +280,7 @@ public class MQConfig implements IMQConfig {
                 throw new Exception("SubMsg name config is null!");
             if (subMsgMap.containsKey(s))
                 throw new Exception("SubMsg name (" + s + ") is repeat!");
-            var m = new SubMsgConfig();
+            var m = new SubConfig();
             m.Name = s;
             s = item.getAttribute("queue");
             if (isNullOrEmpty(s))
@@ -327,11 +333,11 @@ public class MQConfig implements IMQConfig {
      * @return PubMsgConfig
      */
     @Override
-    public PubMsgConfig getPubMsgConfig(String name) {
+    public PubConfig getPubConfig(String name) {
         if (this.pubMsgMap == null)
             return null;
-
-        return this.pubMsgMap.get(name);
+        var pc = this.pubMsgMap.get(name);
+        return pc != null ? pc.copy() : null;
     }
 
     /**
@@ -341,11 +347,11 @@ public class MQConfig implements IMQConfig {
      * @return SubMsgConfig
      */
     @Override
-    public SubMsgConfig getSubMsgConfig(String name) {
+    public SubConfig getSubConfig(String name) {
         if (this.subMsgMap == null)
             return null;
-
-        return this.subMsgMap.get(name);
+        var sc = this.subMsgMap.get(name);
+        return sc != null ? sc.copy() : null;
     }
 
     /**
