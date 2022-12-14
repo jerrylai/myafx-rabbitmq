@@ -544,24 +544,21 @@ public class MQPool implements IMQPool {
      * 
      * @param <T>     T
      * @param hander  hander
-     * @param clazz   clazz
      * @param queue   queue
      * @param autoAck 是否自动确认, 默认 false
      * @throws Exception Exception
      */
     @Override
-    public <T> void sub(ISubHander<T> hander, Class<T> clazz, String queue, Boolean autoAck) throws Exception {
+    public <T> void sub(ISubHander<T> hander, String queue, Boolean autoAck) throws Exception {
         if (hander == null)
             throw new Exception("hander is null!");
-        if (clazz == null)
-            throw new Exception("clazz is null!");
         if (isNullOrEmpty(queue))
             throw new Exception("queue is null!");
         var channel = getSubChannel();
         if (autoAck == null)
             autoAck = false;
         synchronized (this.lockSubChannel) {
-            var consumer = new MQConsumer<T>(channel, this, hander, clazz, queue, autoAck, this.subExceptionHander);
+            var consumer = new MQConsumer<T>(channel, this, hander, queue, autoAck, this.subExceptionHander);
             this.consumerList.add(consumer);
             channel.basicQos(0, 1, false);
             channel.basicConsume(queue, autoAck, consumer);
@@ -640,17 +637,15 @@ public class MQPool implements IMQPool {
     private class MQConsumer<T> extends DefaultConsumer implements AutoCloseable {
         private MQPool pool;
         private ISubHander<T> subHander;
-        private Class<T> clazz;
         private String queue;
         private Boolean autoAck;
         private ISubException exHander;
 
-        public MQConsumer(Channel channel, MQPool pool, ISubHander<T> subHander, Class<T> clazz, String queue,
+        public MQConsumer(Channel channel, MQPool pool, ISubHander<T> subHander, String queue,
                 Boolean autoAck, ISubException exHander) {
             super(channel);
             this.pool = pool;
             this.subHander = subHander;
-            this.clazz = clazz;
             this.queue = queue;
             this.autoAck = autoAck;
         }
@@ -660,7 +655,7 @@ public class MQPool implements IMQPool {
                 throws IOException {
             boolean handerOk = false;
             try {
-                T m = this.pool.deserialize(body, this.clazz);
+                T m = this.pool.deserialize(body, this.subHander.getTClass());
                 if (m != null)
                     handerOk = subHander.hander(m, properties);
                 else
@@ -685,7 +680,6 @@ public class MQPool implements IMQPool {
         public void close() throws Exception {
             this.pool = null;
             this.subHander = null;
-            this.clazz = null;
             this.queue = null;
         }
     }

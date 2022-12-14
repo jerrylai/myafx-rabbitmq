@@ -41,7 +41,12 @@ public class AppTest {
                         return true;
                     }
 
-                }, String.class, sc.Queue, false);
+                    @Override
+                    public Class<String> getTClass() {
+                        return String.class;
+                    }
+
+                }, sc.Queue, false);
 
                 var pc = config.getPubConfig("TestDto");
                 pool.pubDelay("333", pc, 5, null, null);

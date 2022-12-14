@@ -196,10 +196,9 @@ public interface IMQPool extends AutoCloseable {
          * 
          * @param <T>     T
          * @param hander  hander
-         * @param clazz   clazz
          * @param queue   queue
          * @param autoAck 是否自动确认, 默认 false
          * @throws Exception Exception
          */
-        <T> void sub(ISubHander<T> hander, Class<T> clazz, String queue, Boolean autoAck) throws Exception;
+        <T> void sub(ISubHander<T> hander, String queue, Boolean autoAck) throws Exception;
 }

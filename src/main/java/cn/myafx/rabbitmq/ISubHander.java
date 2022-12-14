@@ -6,6 +6,14 @@ import com.rabbitmq.client.BasicProperties;
  * 订阅消息处理
  */
 public interface ISubHander<T> {
+
+    /**
+     * T.class
+     * 
+     * @return T.class
+     */
+    Class<T> getTClass();
+
     /**
      * 订阅消息处理
      * 
