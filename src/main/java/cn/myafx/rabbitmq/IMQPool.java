@@ -7,6 +7,13 @@ import java.util.*;
  */
 public interface IMQPool extends AutoCloseable {
         /**
+         * 异常回调
+         * 
+         * @param hander hander
+         */
+        void setExceptionHander(ISubException hander);
+
+        /**
          * Returns true if the connection is still in a state where it can be used.
          * Identical to checking if RabbitMQ.Client.IConnection.CloseReason equal null.
          * 

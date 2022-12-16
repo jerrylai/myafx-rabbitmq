@@ -5,10 +5,6 @@ import java.util.List;
 
 import com.rabbitmq.client.BasicProperties;
 
-/**
- * Hello world!
- *
- */
 public class AppTest {
     public static void main(String[] args) throws Exception {
         var url = AppTest.class.getClassLoader().getResource("mq-config.xml");
@@ -17,7 +13,7 @@ public class AppTest {
             var es = config.getExchanges();
             var qs = config.getQueues();
 
-            try (var pool = new MQPool("192.168.2.231", 5672, "admin", "admin", "/", 2,
+            try (var pool = new MQPool("192.168.2.231", 5672, "test", "123654", "/dev", 2,
                     15, "test",
                     new IJsonMapper() {
                         @Override

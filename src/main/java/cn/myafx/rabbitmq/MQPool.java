@@ -25,7 +25,16 @@ public class MQPool implements IMQPool {
     /**
      * 异常回调
      */
-    public ISubException subExceptionHander;
+    private ISubException subExceptionHander;
+
+    /**
+     * 异常回调
+     * 
+     * @param hander hander
+     */
+    public void setExceptionHander(ISubException hander) {
+        this.subExceptionHander = hander;
+    }
 
     /**
      * 判断是否为null or ""

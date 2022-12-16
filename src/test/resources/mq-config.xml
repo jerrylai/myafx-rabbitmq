@@ -6,13 +6,15 @@
     </Exchange>
     <Queue>
         <!-- 队列定义 -->
-        <Key queue="afx.test" routingKey="afx.test" delayQueue="afx.test.delay" delayRoutingKey="afx.test.delay"
+        <Key queue="afx.test" routingKey="afx.test" delayQueue="afx.test.delay"
+            delayRoutingKey="afx.test.delay"
             durable="true" exclusive="false" autoDelete="false" exchange="amq.direct"
             isQueueParam="false" />
     </Queue>
     <Pub>
         <!-- 生产定义 name 对应类名 -->
-        <Key name="TestDto" routingKey="afx.test" delayRoutingKey="afx.test.delay" exchange="amq.direct" isRoutingKeyParam="false" />
+        <Key name="TestDto" routingKey="afx.test" delayRoutingKey="afx.test.delay"
+            exchange="amq.direct" isRoutingKeyParam="false" />
     </Pub>
     <Sub>
         <!-- 消费定义 name 对应类名 -->
