@@ -6,4 +6,5 @@
 .classpath
 .factorypath
 .project
+.vscode
 target
