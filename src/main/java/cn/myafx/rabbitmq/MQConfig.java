@@ -27,7 +27,7 @@ public class MQConfig implements IMQConfig {
      * @return boolean
      */
     private boolean isNullOrEmpty(String value) {
-        return value == null || value == "";
+        return value == null || value.length() == 0;
     }
 
     /**
@@ -210,12 +210,12 @@ public class MQConfig implements IMQConfig {
                 if (!(an instanceof Element rel))
                     continue;
                 var n = rel.getNodeName();
-                if (!(n == "QueueArguments" || n == "BindArguments"))
+                if (!("QueueArguments".equals(n) || "BindArguments".equals(n)))
                     continue;
                 var k = rel.getAttribute("key");
                 var v = rel.getAttribute("value");
                 if (!isNullOrEmpty(k) && !isNullOrEmpty(v)) {
-                    if (n == "QueueArguments") {
+                    if ("QueueArguments".equals(n)) {
                         if (m.QueueArguments == null)
                             m.QueueArguments = new HashMap<>(args.getLength());
                         if (!m.QueueArguments.containsKey(k))

@@ -37,21 +37,21 @@ public final class JsonUtils {
         Object obj = null;
 
         if (clazz.isPrimitive()) {
-            if (clazz == boolean.class)
+            if (boolean.class.equals(clazz))
                 obj = false;
-            else if (clazz == char.class)
+            else if (char.class.equals(clazz))
                 obj = '\0';
-            else if (clazz == byte.class)
+            else if (byte.class.equals(clazz))
                 obj = (byte) 0;
-            else if (clazz == short.class)
+            else if (short.class.equals(clazz))
                 obj = (short) 0;
-            else if (clazz == int.class)
+            else if (int.class.equals(clazz))
                 obj = 0;
-            else if (clazz == long.class)
+            else if (long.class.equals(clazz))
                 obj = 0l;
-            else if (clazz == float.class)
+            else if (float.class.equals(clazz))
                 obj = 0f;
-            else if (clazz == double.class)
+            else if (double.class.equals(clazz))
                 obj = 0d;
         }
 

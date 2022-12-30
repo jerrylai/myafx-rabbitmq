@@ -43,7 +43,7 @@ public class MQPool implements IMQPool {
      * @return
      */
     private boolean isNullOrEmpty(String value) {
-        return value == null || value == "";
+        return value == null || value.length() == 0;
     }
 
     /**
@@ -178,10 +178,10 @@ public class MQPool implements IMQPool {
     @SuppressWarnings("unchecked")
     private <T> T deserialize(byte[] buffer, Class<T> clazz) throws Exception {
         var t = byte[].class;
-        if (t == clazz) {
+        if (t.equals(clazz)) {
             Object o = buffer;
             return (T) o;
-        } else if (String.class == clazz) {
+        } else if (String.class.equals(clazz)) {
             Object o = new String(buffer, "utf-8");
             return (T) o;
         } else {
